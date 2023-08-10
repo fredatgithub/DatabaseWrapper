@@ -79,7 +79,7 @@ namespace DatabaseWrapper.Core
         /// <param name="nullable">Indicate if this column is nullable.</param>
         public Column(string name, bool primaryKey, DataTypeEnum dt, bool nullable)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (primaryKey && nullable) throw new ArgumentException("Primary key column '" + name + "' cannot be nullable.");
 
             Name = name;
@@ -109,7 +109,7 @@ namespace DatabaseWrapper.Core
         /// <param name="nullable">Indicate if this column is nullable.</param>
         public Column(string name, bool primaryKey, DataTypeEnum dt, int? maxLen, int? precision, bool nullable)
         {
-            if (String.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException(nameof(name));
             if (primaryKey && nullable) throw new ArgumentException("Primary key column '" + name + "' cannot be nullable.");
             if (maxLen != null && maxLen < 1) throw new ArgumentException("Column '" + name + "' maximum length must be greater than zero if not null.");
             if (precision != null && precision < 1) throw new ArgumentException("Column '" + name + "' preicision must be greater than zero if not null.");

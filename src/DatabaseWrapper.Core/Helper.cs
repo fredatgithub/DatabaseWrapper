@@ -197,7 +197,7 @@ namespace DatabaseWrapper.Core
         /// <returns>True if string contains extended characters.</returns>
         public static bool IsExtendedCharacters(string data)
         {
-            if (String.IsNullOrEmpty(data)) return false;
+            if (string.IsNullOrEmpty(data)) return false;
             foreach (char c in data)
             {
                 if ((int)c > 255) return true;
@@ -212,7 +212,7 @@ namespace DatabaseWrapper.Core
         /// <returns>DataTypeEnum.</returns>
         public static DataTypeEnum DataTypeFromString(string s)
         {
-            if (String.IsNullOrEmpty(s)) throw new ArgumentNullException(nameof(s));
+            if (string.IsNullOrEmpty(s)) throw new ArgumentNullException(nameof(s));
 
             s = s.ToLower();
             if (s.Contains("(")) s = s.Substring(0, s.IndexOf("("));
@@ -314,7 +314,7 @@ namespace DatabaseWrapper.Core
         public static byte[] HexStringToBytes(string hex)
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
-            if (String.IsNullOrEmpty(hex)) throw new ArgumentNullException(nameof(hex));
+            if (string.IsNullOrEmpty(hex)) throw new ArgumentNullException(nameof(hex));
             if (hex.Length % 2 == 1) throw new ArgumentException("The supplied hex cannot have an odd number of digits.");
 
             byte[] arr = new byte[hex.Length >> 1];

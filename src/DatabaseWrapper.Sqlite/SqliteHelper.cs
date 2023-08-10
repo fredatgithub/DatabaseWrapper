@@ -342,7 +342,7 @@ namespace DatabaseWrapper.Sqlite
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -498,7 +498,7 @@ namespace DatabaseWrapper.Sqlite
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -530,7 +530,7 @@ namespace DatabaseWrapper.Sqlite
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -562,7 +562,7 @@ namespace DatabaseWrapper.Sqlite
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -1098,7 +1098,7 @@ namespace DatabaseWrapper.Sqlite
 
             foreach (KeyValuePair<string, object> currKvp in keyValuePairs)
             {
-                if (String.IsNullOrEmpty(currKvp.Key)) continue;
+                if (string.IsNullOrEmpty(currKvp.Key)) continue;
 
                 if (added > 0)
                 {
@@ -1244,7 +1244,7 @@ namespace DatabaseWrapper.Sqlite
 
             foreach (KeyValuePair<string, object> currKvp in keyValuePairs)
             {
-                if (String.IsNullOrEmpty(currKvp.Key)) continue;
+                if (string.IsNullOrEmpty(currKvp.Key)) continue;
 
                 if (added > 0) keyValueClause += ",";
 

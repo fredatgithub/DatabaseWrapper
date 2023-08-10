@@ -66,7 +66,7 @@ namespace DatabaseWrapper.Core
         /// <param name="ex">Exception, if any.</param>
         public DatabaseQueryEvent(string query, double totalMs, DataTable result, Exception ex = null)
         {
-            if (String.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
+            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
             if (totalMs < 0) throw new ArgumentOutOfRangeException(nameof(totalMs));
             Query = query;
             TotalMilliseconds = totalMs;

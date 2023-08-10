@@ -55,8 +55,8 @@ namespace DatabaseWrapper.Mysql
             ret += "Server=" + settings.Hostname + "; ";
             if (settings.Port > 0) ret += "Port=" + settings.Port + "; ";
             ret += "Database=" + settings.DatabaseName + "; ";
-            if (!String.IsNullOrEmpty(settings.Username)) ret += "Uid=" + settings.Username + "; ";
-            if (!String.IsNullOrEmpty(settings.Password)) ret += "Pwd=" + settings.Password + "; ";
+            if (!string.IsNullOrEmpty(settings.Username)) ret += "Uid=" + settings.Username + "; ";
+            if (!string.IsNullOrEmpty(settings.Password)) ret += "Pwd=" + settings.Password + "; ";
 
             return ret;
         }
@@ -269,7 +269,7 @@ namespace DatabaseWrapper.Mysql
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -423,7 +423,7 @@ namespace DatabaseWrapper.Mysql
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -455,7 +455,7 @@ namespace DatabaseWrapper.Mysql
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -487,7 +487,7 @@ namespace DatabaseWrapper.Mysql
             // expressions
             //
             if (filter != null) whereClause = ExpressionToWhereClause(filter);
-            if (!String.IsNullOrEmpty(whereClause))
+            if (!string.IsNullOrEmpty(whereClause))
             {
                 query += "WHERE " + whereClause + " ";
             }
@@ -1028,7 +1028,7 @@ namespace DatabaseWrapper.Mysql
 
             foreach (KeyValuePair<string, object> currKvp in keyValuePairs)
             {
-                if (String.IsNullOrEmpty(currKvp.Key)) continue;
+                if (string.IsNullOrEmpty(currKvp.Key)) continue;
 
                 if (added > 0)
                 {
@@ -1087,7 +1087,7 @@ namespace DatabaseWrapper.Mysql
 
         private bool IsExtendedCharacters(string data)
         {
-            if (String.IsNullOrEmpty(data)) return false;
+            if (string.IsNullOrEmpty(data)) return false;
             foreach (char c in data)
             {
                 if ((int)c > 255) return true;
@@ -1198,7 +1198,7 @@ namespace DatabaseWrapper.Mysql
 
             foreach (KeyValuePair<string, object> currKvp in keyValuePairs)
             {
-                if (String.IsNullOrEmpty(currKvp.Key)) continue;
+                if (string.IsNullOrEmpty(currKvp.Key)) continue;
 
                 if (added > 0) keyValueClause += ",";
 

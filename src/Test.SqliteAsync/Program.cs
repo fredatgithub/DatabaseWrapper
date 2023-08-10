@@ -27,7 +27,7 @@ namespace Test.Sqlite
 
                 Console.Write("Filename: ");
                 string filename = Console.ReadLine();
-                if (String.IsNullOrEmpty(filename)) return;
+                if (string.IsNullOrEmpty(filename)) return;
                 _Settings = new DatabaseSettings(filename);
                 _Settings.Debug.Logger = Logger;
                 _Settings.Debug.EnableForQueries = true;

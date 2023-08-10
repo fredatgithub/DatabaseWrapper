@@ -46,7 +46,7 @@ namespace DatabaseWrapper.Sqlite
             }
             set
             {
-                if (String.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampFormat));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampFormat));
                 _Helper.TimestampFormat = value;
             }
         }
@@ -63,7 +63,7 @@ namespace DatabaseWrapper.Sqlite
             }
             set
             {
-                if (String.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampOffsetFormat));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampOffsetFormat));
                 _Helper.TimestampOffsetFormat = value;
             }
         }
@@ -138,7 +138,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="filename">Sqlite database filename.</param>
         public DatabaseClient(string filename)
         {
-            if (String.IsNullOrEmpty(filename)) throw new ArgumentNullException(nameof(filename));
+            if (string.IsNullOrEmpty(filename)) throw new ArgumentNullException(nameof(filename));
             _Settings = new DatabaseSettings(filename);
             _ConnectionString = _Helper.GenerateConnectionString(_Settings);
         }
@@ -210,7 +210,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>True if exists.</returns>
         public override bool TableExists(string tableName)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             return ListTables().Contains(tableName);
         }
 
@@ -222,7 +222,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>True if exists.</returns>
         public override async Task<bool> TableExistsAsync(string tableName, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             List<string> tables = await ListTablesAsync(token).ConfigureAwait(false);
             return tables.Contains(tableName);
         }
@@ -234,7 +234,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A list of column objects.</returns>
         public override List<Column> DescribeTable(string tableName)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
 
             List<Column> columns = new List<Column>();
 
@@ -254,7 +254,7 @@ namespace DatabaseWrapper.Sqlite
                     if (currColumn.Table.Columns.Contains("CHARACTER_MAXIMUM_LENGTH"))
                     {
                         int maxLength = 0;
-                        if (Int32.TryParse(currColumn["CHARACTER_MAXIMUM_LENGTH"].ToString(), out maxLength))
+                        if (int.TryParse(currColumn["CHARACTER_MAXIMUM_LENGTH"].ToString(), out maxLength))
                         {
                             tempColumn.MaxLength = maxLength;
                         }
@@ -264,7 +264,7 @@ namespace DatabaseWrapper.Sqlite
 
                     if (currColumn.Table.Columns.Contains("IS_NULLABLE"))
                     {
-                        if (String.Compare(currColumn["IS_NULLABLE"].ToString(), "YES") == 0) tempColumn.Nullable = true;
+                        if (string.Compare(currColumn["IS_NULLABLE"].ToString(), "YES") == 0) tempColumn.Nullable = true;
                         else tempColumn.Nullable = false;
                     }
                     else if (currColumn.Table.Columns.Contains("IS_NOT_NULLABLE"))
@@ -274,7 +274,7 @@ namespace DatabaseWrapper.Sqlite
 
                     if (currColumn["IS_PRIMARY_KEY"] != null
                         && currColumn["IS_PRIMARY_KEY"] != DBNull.Value
-                        && !String.IsNullOrEmpty(currColumn["IS_PRIMARY_KEY"].ToString()))
+                        && !string.IsNullOrEmpty(currColumn["IS_PRIMARY_KEY"].ToString()))
                     {
                         tempColumn.PrimaryKey = Convert.ToBoolean(currColumn["IS_PRIMARY_KEY"]);
                     }
@@ -299,7 +299,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A list of column objects.</returns>
         public override async Task<List<Column>> DescribeTableAsync(string tableName, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
 
             List<Column> columns = new List<Column>();
 
@@ -319,7 +319,7 @@ namespace DatabaseWrapper.Sqlite
                     if (currColumn.Table.Columns.Contains("CHARACTER_MAXIMUM_LENGTH"))
                     {
                         int maxLength = 0;
-                        if (Int32.TryParse(currColumn["CHARACTER_MAXIMUM_LENGTH"].ToString(), out maxLength))
+                        if (int.TryParse(currColumn["CHARACTER_MAXIMUM_LENGTH"].ToString(), out maxLength))
                         {
                             tempColumn.MaxLength = maxLength;
                         }
@@ -329,7 +329,7 @@ namespace DatabaseWrapper.Sqlite
 
                     if (currColumn.Table.Columns.Contains("IS_NULLABLE"))
                     {
-                        if (String.Compare(currColumn["IS_NULLABLE"].ToString(), "YES") == 0) tempColumn.Nullable = true;
+                        if (string.Compare(currColumn["IS_NULLABLE"].ToString(), "YES") == 0) tempColumn.Nullable = true;
                         else tempColumn.Nullable = false;
                     }
                     else if (currColumn.Table.Columns.Contains("IS_NOT_NULLABLE"))
@@ -339,7 +339,7 @@ namespace DatabaseWrapper.Sqlite
 
                     if (currColumn["IS_PRIMARY_KEY"] != null
                         && currColumn["IS_PRIMARY_KEY"] != DBNull.Value
-                        && !String.IsNullOrEmpty(currColumn["IS_PRIMARY_KEY"].ToString()))
+                        && !string.IsNullOrEmpty(currColumn["IS_PRIMARY_KEY"].ToString()))
                     {
                         tempColumn.PrimaryKey = Convert.ToBoolean(currColumn["IS_PRIMARY_KEY"]);
                     }
@@ -406,7 +406,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="columns">Columns.</param>
         public override void CreateTable(string tableName, List<Column> columns)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (columns == null || columns.Count < 1) throw new ArgumentNullException(nameof(columns));
             Query(_Helper.CreateTableQuery(tableName, columns));
         }
@@ -419,7 +419,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="token">Cancellation token.</param>
         public override async Task CreateTableAsync(string tableName, List<Column> columns, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (columns == null || columns.Count < 1) throw new ArgumentNullException(nameof(columns));
             await QueryAsync(_Helper.CreateTableQuery(tableName, columns), token).ConfigureAwait(false);
         }
@@ -430,7 +430,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="tableName">The table to drop.</param>
         public override void DropTable(string tableName)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             Query(_Helper.DropTableQuery(tableName));
         }
 
@@ -441,7 +441,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="token">Cancellation token.</param>
         public override async Task DropTableAsync(string tableName, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             await QueryAsync(_Helper.DropTableQuery(tableName), token).ConfigureAwait(false);
         }
 
@@ -452,7 +452,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A string containing the column name.</returns>
         public override string GetPrimaryKeyColumn(string tableName)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
 
             List<Column> details = DescribeTable(tableName);
             if (details != null && details.Count > 0)
@@ -473,7 +473,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A list of strings containing the column names.</returns>
         public override List<string> GetColumnNames(string tableName)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
 
             List<Column> details = DescribeTable(tableName);
             List<string> columnNames = new List<string>();
@@ -498,8 +498,8 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing at most one row.</returns>
         public override DataTable GetUniqueObjectById(string tableName, string columnName, object value)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
-            if (String.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
             Expr e = new Expr
@@ -522,8 +522,8 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing at most one row.</returns>
         public override async Task<DataTable> GetUniqueObjectByIdAsync(string tableName, string columnName, object value, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
-            if (String.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
             if (value == null) throw new ArgumentNullException(nameof(value));
 
             Expr e = new Expr
@@ -547,7 +547,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override DataTable Select(string tableName, int? indexStart, int? maxResults, List<string> returnFields, Expr filter)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             return Query(_Helper.SelectQuery(tableName, indexStart, maxResults, returnFields, filter, null));
         }
 
@@ -563,7 +563,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override async Task<DataTable> SelectAsync(string tableName, int? indexStart, int? maxResults, List<string> returnFields, Expr filter, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             return await QueryAsync(_Helper.SelectQuery(tableName, indexStart, maxResults, returnFields, filter, null), token).ConfigureAwait(false);
         }
 
@@ -579,7 +579,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override DataTable Select(string tableName, int? indexStart, int? maxResults, List<string> returnFields, Expr filter, ResultOrder[] resultOrder)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             return Query(_Helper.SelectQuery(tableName, indexStart, maxResults, returnFields, filter, resultOrder));
         }
 
@@ -596,7 +596,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override async Task<DataTable> SelectAsync(string tableName, int? indexStart, int? maxResults, List<string> returnFields, Expr filter, ResultOrder[] resultOrder, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             return await QueryAsync(_Helper.SelectQuery(tableName, indexStart, maxResults, returnFields, filter, resultOrder), token).ConfigureAwait(false);
         }
 
@@ -608,7 +608,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override DataTable Insert(string tableName, Dictionary<string, object> keyValuePairs)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (keyValuePairs == null || keyValuePairs.Count < 1) throw new ArgumentNullException(nameof(keyValuePairs));
 
             DataTable result = Query(_Helper.InsertQuery(tableName, keyValuePairs));
@@ -620,11 +620,11 @@ namespace DatabaseWrapper.Sqlite
                 string primaryKeyColumn = GetPrimaryKeyColumn(tableName);
                 int insertedId = 0;
 
-                if (!String.IsNullOrEmpty(primaryKeyColumn))
+                if (!string.IsNullOrEmpty(primaryKeyColumn))
                 {
                     foreach (DataRow curr in result.Rows)
                     {
-                        if (Int32.TryParse(curr["id"].ToString(), out insertedId))
+                        if (int.TryParse(curr["id"].ToString(), out insertedId))
                         {
                             idFound = true;
                             break;
@@ -655,7 +655,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override async Task<DataTable> InsertAsync(string tableName, Dictionary<string, object> keyValuePairs, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (keyValuePairs == null || keyValuePairs.Count < 1) throw new ArgumentNullException(nameof(keyValuePairs));
 
             DataTable result = await QueryAsync(_Helper.InsertQuery(tableName, keyValuePairs), token).ConfigureAwait(false);
@@ -667,11 +667,11 @@ namespace DatabaseWrapper.Sqlite
                 string primaryKeyColumn = GetPrimaryKeyColumn(tableName);
                 int insertedId = 0;
 
-                if (!String.IsNullOrEmpty(primaryKeyColumn))
+                if (!string.IsNullOrEmpty(primaryKeyColumn))
                 {
                     foreach (DataRow curr in result.Rows)
                     {
-                        if (Int32.TryParse(curr["id"].ToString(), out insertedId))
+                        if (int.TryParse(curr["id"].ToString(), out insertedId))
                         {
                             idFound = true;
                             break;
@@ -700,7 +700,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="keyValuePairList">List of dictionaries containing key-value pairs for the rows you wish to INSERT.</param>
         public override void InsertMultiple(string tableName, List<Dictionary<string, object>> keyValuePairList)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (keyValuePairList == null || keyValuePairList.Count < 1) throw new ArgumentNullException(nameof(keyValuePairList));
             Query(_Helper.InsertMultipleQuery(tableName, keyValuePairList));
         }
@@ -713,7 +713,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="token">Cancellation token.</param>
         public override async Task InsertMultipleAsync(string tableName, List<Dictionary<string, object>> keyValuePairList, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (keyValuePairList == null || keyValuePairList.Count < 1) throw new ArgumentNullException(nameof(keyValuePairList));
             await QueryAsync(_Helper.InsertMultipleQuery(tableName, keyValuePairList), token).ConfigureAwait(false);
         }
@@ -726,7 +726,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="filter">The expression containing the UPDATE filter (i.e. WHERE clause data).</param> 
         public override void Update(string tableName, Dictionary<string, object> keyValuePairs, Expr filter)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (keyValuePairs == null || keyValuePairs.Count < 1) throw new ArgumentNullException(nameof(keyValuePairs));
             Query(_Helper.UpdateQuery(tableName, keyValuePairs, filter));
         }
@@ -740,7 +740,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="token">Cancellation token.</param>
         public override async Task UpdateAsync(string tableName, Dictionary<string, object> keyValuePairs, Expr filter, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (keyValuePairs == null || keyValuePairs.Count < 1) throw new ArgumentNullException(nameof(keyValuePairs));
             await QueryAsync(_Helper.UpdateQuery(tableName, keyValuePairs, filter), token).ConfigureAwait(false);
         }
@@ -752,7 +752,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="filter">The expression containing the DELETE filter (i.e. WHERE clause data).</param> 
         public override void Delete(string tableName, Expr filter)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (filter == null) throw new ArgumentNullException(nameof(filter));
             Query(_Helper.DeleteQuery(tableName, filter));
         }
@@ -765,7 +765,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="token">Cancellation token.</param>
         public override async Task DeleteAsync(string tableName, Expr filter, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             if (filter == null) throw new ArgumentNullException(nameof(filter));
             await QueryAsync(_Helper.DeleteQuery(tableName, filter), token).ConfigureAwait(false);
         }
@@ -776,7 +776,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="tableName">The table you wish to TRUNCATE.</param>
         public override void Truncate(string tableName)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             Query(_Helper.TruncateQuery(tableName));
         }
 
@@ -787,7 +787,7 @@ namespace DatabaseWrapper.Sqlite
         /// <param name="token">Cancellation token.</param>
         public override async Task TruncateAsync(string tableName, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             await QueryAsync(_Helper.TruncateQuery(tableName), token).ConfigureAwait(false);
         }
 
@@ -798,7 +798,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override DataTable Query(string query)
         {
-            if (String.IsNullOrEmpty(query)) throw new ArgumentNullException(query);
+            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(query);
             if (query.Length > MaxStatementLength) throw new ArgumentException("Query exceeds maximum statement length of " + MaxStatementLength + " characters.");
 
             DateTime startTime = DateTime.Now;
@@ -862,7 +862,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A DataTable containing the results.</returns>
         public override async Task<DataTable> QueryAsync(string query, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(query)) throw new ArgumentNullException(query);
+            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(query);
             if (query.Length > MaxStatementLength) throw new ArgumentException("Query exceeds maximum statement length of " + MaxStatementLength + " characters.");
 
             DateTime startTime = DateTime.Now;
@@ -926,7 +926,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>True if records exist.</returns>
         public override bool Exists(string tableName, Expr filter)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             DataTable result = Query(_Helper.ExistsQuery(tableName, filter));
             if (result != null && result.Rows.Count > 0) return true;
             return false;
@@ -941,7 +941,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>True if records exist.</returns>
         public override async Task<bool> ExistsAsync(string tableName, Expr filter, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             DataTable result = await QueryAsync(_Helper.ExistsQuery(tableName, filter), token).ConfigureAwait(false);
             if (result != null && result.Rows.Count > 0) return true;
             return false;
@@ -955,7 +955,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>The number of records.</returns>
         public override long Count(string tableName, Expr filter)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             DataTable result = Query(_Helper.CountQuery(tableName, _CountColumnName, filter));
             if (result != null
                 && result.Rows.Count > 0
@@ -977,7 +977,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>The number of records.</returns>
         public override async Task<long> CountAsync(string tableName, Expr filter, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
             DataTable result = await QueryAsync(_Helper.CountQuery(tableName, _CountColumnName, filter), token).ConfigureAwait(false);
             if (result != null
                 && result.Rows.Count > 0
@@ -999,8 +999,8 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>The sum of the specified column from the matching rows.</returns>
         public override decimal Sum(string tableName, string fieldName, Expr filter)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
-            if (String.IsNullOrEmpty(fieldName)) throw new ArgumentNullException(nameof(fieldName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(fieldName)) throw new ArgumentNullException(nameof(fieldName));
             DataTable result = Query(_Helper.SumQuery(tableName, fieldName, _SumColumnName, filter));
             if (result != null
                 && result.Rows.Count > 0
@@ -1023,8 +1023,8 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>The sum of the specified column from the matching rows.</returns>
         public override async Task<decimal> SumAsync(string tableName, string fieldName, Expr filter, CancellationToken token = default)
         {
-            if (String.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
-            if (String.IsNullOrEmpty(fieldName)) throw new ArgumentNullException(nameof(fieldName));
+            if (string.IsNullOrEmpty(tableName)) throw new ArgumentNullException(nameof(tableName));
+            if (string.IsNullOrEmpty(fieldName)) throw new ArgumentNullException(nameof(fieldName));
             DataTable result = await QueryAsync(_Helper.SumQuery(tableName, fieldName, _SumColumnName, filter), token).ConfigureAwait(false);
             if (result != null
                 && result.Rows.Count > 0
@@ -1064,7 +1064,7 @@ namespace DatabaseWrapper.Sqlite
         /// <returns>A sanitized string.</returns>
         public override string SanitizeString(string s)
         {
-            if (String.IsNullOrEmpty(s)) return s; 
+            if (string.IsNullOrEmpty(s)) return s; 
             return _Helper.SanitizeString(s); 
         }
          

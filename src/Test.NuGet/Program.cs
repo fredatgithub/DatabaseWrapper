@@ -36,7 +36,7 @@ namespace Test
 
                 Console.Write("DB type [sqlserver|mysql|postgresql|sqlite]: ");
                 string dbType = Console.ReadLine();
-                if (String.IsNullOrEmpty(dbType)) return;
+                if (string.IsNullOrEmpty(dbType)) return;
                 dbType = dbType.ToLower();
 
                 if (dbType.Equals("sqlserver") || dbType.Equals("mysql") || dbType.Equals("postgresql"))
@@ -69,7 +69,7 @@ namespace Test
                 {
                     Console.Write("Filename: ");
                     string filename = Console.ReadLine();
-                    if (String.IsNullOrEmpty(filename)) return;
+                    if (string.IsNullOrEmpty(filename)) return;
 
                     _Settings = new DatabaseSettings(filename);
                     _Database = new DatabaseClient(_Settings);

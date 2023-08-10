@@ -43,7 +43,7 @@ namespace DatabaseWrapper.Core
         /// <param name="direction">Direction by which results should be returned.</param>
         public ResultOrder(string columnName, OrderDirectionEnum direction)
         {
-            if (String.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
+            if (string.IsNullOrEmpty(columnName)) throw new ArgumentNullException(nameof(columnName));
             ColumnName = columnName;
             Direction = direction;
         }

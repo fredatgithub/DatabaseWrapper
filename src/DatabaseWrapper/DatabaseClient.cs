@@ -70,7 +70,7 @@ namespace DatabaseWrapper
             }
             set
             {
-                if (String.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampFormat));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampFormat));
                 
                 switch (_Settings.Type)
                 {
@@ -116,7 +116,7 @@ namespace DatabaseWrapper
             }
             set
             {
-                if (String.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampOffsetFormat));
+                if (string.IsNullOrEmpty(value)) throw new ArgumentNullException(nameof(TimestampOffsetFormat));
 
                 switch (_Settings.Type)
                 {
@@ -270,10 +270,10 @@ namespace DatabaseWrapper
         {
             _Settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-            if (_Settings.Type == DbTypeEnum.Sqlite && String.IsNullOrEmpty(_Settings.Filename))
+            if (_Settings.Type == DbTypeEnum.Sqlite && string.IsNullOrEmpty(_Settings.Filename))
                 throw new ArgumentException("Filename must be populated in database settings of type 'Sqlite'.");
 
-            if (_Settings.Type != DbTypeEnum.SqlServer && !String.IsNullOrEmpty(_Settings.Instance))
+            if (_Settings.Type != DbTypeEnum.SqlServer && !string.IsNullOrEmpty(_Settings.Instance))
                 throw new ArgumentException("Instance can only be used in database settings of type 'SqlServer'.");
 
             _Header = "[DatabaseWrapper." + _Settings.Type.ToString() + "] ";
@@ -303,7 +303,7 @@ namespace DatabaseWrapper
         /// <param name="filename">Sqlite database.</param>
         public DatabaseClient(string filename)
         {
-            if (String.IsNullOrEmpty(filename)) throw new ArgumentNullException(nameof(filename));
+            if (string.IsNullOrEmpty(filename)) throw new ArgumentNullException(nameof(filename));
             _Settings = new DatabaseSettings(filename);
             _Header = "[DatabaseWrapper." + _Settings.Type.ToString() + "] "; 
             _Sqlite = new Sqlite.DatabaseClient(filename);
@@ -329,9 +329,9 @@ namespace DatabaseWrapper
             string database)
         {
             if (dbType == DbTypeEnum.Sqlite) throw new ArgumentException("Use the filename constructor for Sqlite databases.");
-            if (String.IsNullOrEmpty(serverIp)) throw new ArgumentNullException(nameof(serverIp));
+            if (string.IsNullOrEmpty(serverIp)) throw new ArgumentNullException(nameof(serverIp));
             if (serverPort < 0) throw new ArgumentOutOfRangeException(nameof(serverPort));
-            if (String.IsNullOrEmpty(database)) throw new ArgumentNullException(nameof(database));
+            if (string.IsNullOrEmpty(database)) throw new ArgumentNullException(nameof(database));
 
             if (dbType == DbTypeEnum.SqlServer)
             {
@@ -339,7 +339,7 @@ namespace DatabaseWrapper
             }
             else
             {
-                if (!String.IsNullOrEmpty(instance))
+                if (!string.IsNullOrEmpty(instance))
                     throw new ArgumentException("Instance can only be used in database settings of type 'SqlServer'.");
 
                 _Settings = new DatabaseSettings(dbType, serverIp, serverPort, username, password, database);
@@ -382,9 +382,9 @@ namespace DatabaseWrapper
             string password, 
             string database)
         {
-            if (String.IsNullOrEmpty(serverIp)) throw new ArgumentNullException(nameof(serverIp));
+            if (string.IsNullOrEmpty(serverIp)) throw new ArgumentNullException(nameof(serverIp));
             if (serverPort < 0) throw new ArgumentOutOfRangeException(nameof(serverPort));
-            if (String.IsNullOrEmpty(database)) throw new ArgumentNullException(nameof(database));
+            if (string.IsNullOrEmpty(database)) throw new ArgumentNullException(nameof(database));
 
             _Settings = new DatabaseSettings(dbType, serverIp, serverPort, username, password, database); 
             _Header = "[DatabaseWrapper." + _Settings.Type.ToString() + "] ";
